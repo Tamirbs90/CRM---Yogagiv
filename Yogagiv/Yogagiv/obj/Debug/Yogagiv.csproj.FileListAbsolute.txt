@@ -1,0 +1,14 @@
+c:\users\tamir\documents\visual studio 2015\Projects\Yogagiv\Yogagiv\bin\Debug\Yogagiv.exe.config
+C:\Users\Tamir\Documents\Visual Studio 2015\Projects\Yogagiv\Yogagiv\bin\Debug\Yogagiv.exe
+C:\Users\Tamir\Documents\Visual Studio 2015\Projects\Yogagiv\Yogagiv\bin\Debug\Yogagiv.pdb
+C:\Users\Tamir\Documents\Visual Studio 2015\Projects\Yogagiv\Yogagiv\obj\Debug\Yogagiv.csprojResolveAssemblyReference.cache
+C:\Users\Tamir\Documents\Visual Studio 2015\Projects\Yogagiv\Yogagiv\obj\Debug\MainWindow.g.cs
+C:\Users\Tamir\Documents\Visual Studio 2015\Projects\Yogagiv\Yogagiv\obj\Debug\App.g.cs
+C:\Users\Tamir\Documents\Visual Studio 2015\Projects\Yogagiv\Yogagiv\obj\Debug\Yogagiv_MarkupCompile.cache
+C:\Users\Tamir\Documents\Visual Studio 2015\Projects\Yogagiv\Yogagiv\obj\Debug\Yogagiv_MarkupCompile.lref
+C:\Users\Tamir\Documents\Visual Studio 2015\Projects\Yogagiv\Yogagiv\obj\Debug\MainWindow.baml
+C:\Users\Tamir\Documents\Visual Studio 2015\Projects\Yogagiv\Yogagiv\obj\Debug\Yogagiv.g.resources
+C:\Users\Tamir\Documents\Visual Studio 2015\Projects\Yogagiv\Yogagiv\obj\Debug\Yogagiv.Properties.Resources.resources
+C:\Users\Tamir\Documents\Visual Studio 2015\Projects\Yogagiv\Yogagiv\obj\Debug\Yogagiv.csproj.GenerateResource.Cache
+C:\Users\Tamir\Documents\Visual Studio 2015\Projects\Yogagiv\Yogagiv\obj\Debug\Yogagiv.exe
+C:\Users\Tamir\Documents\Visual Studio 2015\Projects\Yogagiv\Yogagiv\obj\Debug\Yogagiv.pdb
