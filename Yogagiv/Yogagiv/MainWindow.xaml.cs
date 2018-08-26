@@ -22,27 +22,26 @@ namespace Yogagiv
     /// </summary>
     public partial class MainWindow : Window
     {
-        public AppLogic Logic { get; set; }
+        public ApplicationLogic AppLogic { get; set; }
 
         public MainWindow()
         {
-            Logic = new AppLogic();
+            AppLogic = new ApplicationLogic();
             InitializeComponent();
             login();
         }
 
         private void login()
         {
-            Logic.Connection = new SqlConnection();
-            Logic.Connection.ConnectionString = "Data Source=TAMIR; Initial Catalog = Yogagiv; Integrated Security = True";
+            AppLogic.Connection = new SqlConnection();
+            AppLogic.Connection.ConnectionString = "Data Source=TAMIR; Initial Catalog = Yogagiv; Integrated Security = True";
             string query = "select * from Month";
             updateDataGrid(query);
         }
 
         private void updateDataGrid(string query)
         {
-                
-            SqlCommand command = new SqlCommand(query, Logic.Connection);
+            SqlCommand command = new SqlCommand(query, AppLogic.Connection);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataTable table = new DataTable();
             adapter.Fill(table);
@@ -92,72 +91,17 @@ namespace Yogagiv
                 !string.IsNullOrEmpty(dateTextBox.Text) &&
                     !string.IsNullOrEmpty(addMonthComboBox.Text))
             {
-                Logic.Connection.Open();
+                AppLogic.Connection.Open();
                 string selectedMonth =addMonthComboBox.SelectedItem as string;
-                if (!customerExists(updateNameTextBox.Text)) // add customer to database
-                {
-                    string query1 = string.Format("insert into Customers (Name, NumOfClass) values('{0}', 1)",
-                        updateNameTextBox.Text);
-                    new SqlCommand(query1, Logic.Connection).ExecuteNonQuery();
-                }
-
-                string query2 = string.Format("select NumOfClass from Customers where Name='{0}'",
-                    updateNameTextBox.Text); // find num Of class
-                SqlCommand numOfClassCommand = new SqlCommand(query2, Logic.Connection);
-                var reader = numOfClassCommand.ExecuteReader();
-                reader.Read();
-                int numOfClass = reader.GetInt32(0);
-                reader.Close();
-                if(!customerMonthExists(updateNameTextBox.Text, selectedMonth)) // update month
-                {
-                    string query3 = string.Format("insert into Month (Name, Month) values('{0}','{1}')",
-                      updateNameTextBox.Text, selectedMonth);
-                    SqlCommand command = new SqlCommand(query3, Logic.Connection);
-                    command.ExecuteNonQuery();
-                }
-
-                string query4; // update class
-                if (!string.IsNullOrEmpty(paidTextBox.Text))
-                {
-                    query4 = string.Format("update Month set [{0}]='{1}', Paid={2} where Name= '{3}' and Month='{4}",
-                            numOfClass, dateTextBox.Text, paidTextBox.Text, updateNameTextBox.Text, selectedMonth);
-                }
-                else
-                {
-                    query4 = string.Format("update Month set [{0}]='{1}' where Name= '{2}' and Month='{3}'",
-                            numOfClass, dateTextBox.Text, updateNameTextBox.Text, selectedMonth);
-                }
-
-                new SqlCommand(query4, Logic.Connection).ExecuteNonQuery();
-               string query5 = string.Format("update Customers set NumOfClass+=1 where Name='{0}'",
-                   updateNameTextBox.Text); // increase num of classes
-               new SqlCommand(query5, Logic.Connection).ExecuteNonQuery();
-                string query6 = string.Format("select* from Month where Name='{0}' and Month='{1}'",
+                AppLogic.UpdateData(updateNameTextBox.Text, addMonthComboBox.Text,
+                    dateTextBox.Text, paidTextBox.Text);
+                string query = string.Format("select* from Month where Name='{0}' and Month='{1}'",
                     updateNameTextBox.Text, addMonthComboBox.Text);
-                updateDataGrid(query6); // update the grid
-                Logic.Connection.Close();
+                updateDataGrid(query); // update the grid
+                AppLogic.Connection.Close();
                 dateTextBox.Clear();
                 paidTextBox.Clear();
-               
             }
-        }
-
-        private bool customerMonthExists(string i_Name, string i_Month)
-        {
-            string query = string.Format("select * from Month where Name='{0}' and Month='{1}'",
-                    i_Name, i_Month);
-            SqlCommand verification = new SqlCommand(query, Logic.Connection);
-            if (verification.ExecuteScalar() != null)
-                return true;
-            return false;
-        }
-
-        private bool customerExists(string i_Name)
-        {
-            string query2 = string.Format("select * from Customers where Name= '{0}'", i_Name);
-            if (new SqlCommand(query2, Logic.Connection).ExecuteScalar() != null) // uset exists
-                return true;
-            return false;
         }
 
         private void addMonthComboBox_Loaded(object sender, RoutedEventArgs e)
